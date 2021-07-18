@@ -1,9 +1,9 @@
 import "./App.css";
-import axios from 'axios';
-import { useState, useEffect } from 'react';
-import Header from './components/ui/Header';
-import CharacterGrid from './components/characters/CharacterGrid';
-import Search from './components/ui/Search';
+import axios from "axios";
+import { useState, useEffect } from "react";
+import Header from "./components/ui/Header";
+import CharacterGrid from "./components/characters/CharacterGrid";
+import Search from "./components/ui/Search";
 const App = () => {
   const [items, setItems] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -11,19 +11,25 @@ const App = () => {
 
   useEffect(() => {
     const fetchItems = async () => {
-      const result = await axios(`https://www.breakingbadapi.com/api/characters?name=${query}` )
+      const result = await axios(
+        `https://www.breakingbadapi.com/api/characters?name=${query}`
+      );
       console.log(result.data);
       setItems(result.data);
       setIsLoading(false);
-    }
+    };
     fetchItems();
-  },[query]);
+  }, [query]);
 
-  return <div className="Container">
-    <Header />
-    <Search getQuery={(q) => setQuery(q)} />
-    <CharacterGrid isLoading={isLoading} items={items} />
-  </div>;
+  return (
+    <div className="Container">
+      <Header />
+      <Search getQuery={(q) => setQuery(q)} />
+      <div className="container">
+        <CharacterGrid isLoading={isLoading} items={items} />
+      </div>
+    </div>
+  );
 };
 
 export default App;
